@@ -9,24 +9,24 @@ body {
 }
 
 .container {
-    width: 50vw;   /* نصف عرض صفحه */
-    height: 70vh;  /* 70 درصد ارتفاع صفحه */
+    width: 320px;
+    height: 550px;
     background: #0f2b4a;
-    border-radius: 3vw;
+    border-radius: 30px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.6);
-    padding: 3vw;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    padding: 20px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;   /* همه عناصر وسط افقی */
+    /* حاشیه رنگین‌کمانی دوخته‌شده دقیقاً مثل عکست */
+    background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%23ff6b6b' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='0' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%23feca57' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='12' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%23f9ca24' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='24' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%2300ff00' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='36' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%234ecdc4' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='48' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%23f3722c' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='60' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%23ff9ff3' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='72' /%3E%3Crect width='100%' height='100%' fill='none' rx='30' ry='30' stroke='%2feca57' stroke-width='12' stroke-dasharray='0,24,42,24' stroke-dashoffset='84' /%3E%3C/svg%3E");
+    background-clip: padding-box;
 }
 
 .container::before {
     content: '';
     position: absolute;
-    top: -2vh; left: -2vh; right: -2vh; bottom: -2vh;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
     background: repeating-conic-gradient(
         from 0deg,
         #ff0000, #ff9900 10deg,
@@ -35,7 +35,7 @@ body {
         #9900ff 60deg, #ff00ff 70deg,
         #ff0000 80deg
     );
-    border-radius: 5vw;
+    border-radius: 40px;
     z-index: -1;
     background-size: 200% 200%;
     animation: rainbow 10s linear infinite;
@@ -48,42 +48,42 @@ body {
 
 .sign-up {
     position: absolute;
-    top: 2vh;
-    right: 3vw;
+    top: 20px;
+    right: 25px;
     color: white;
-    font-size: 2vh;
+    font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 1vh;
+    gap: 6px;
     z-index: 10;
 }
 
 .door-icon {
-    width: 2vh;
-    height: 2vh;
+    width: 18px;
+    height: 18px;
     background: white;
-    border-radius: 0.5vh;
+    border-radius: 4px;
     position: relative;
 }
 
 .door-icon::after {
     content: '';
     position: absolute;
-    top: 0.6vh;
-    right: 0.6vh;
-    width: 0.6vh;
-    height: 0.6vh;
+    top: 6px;
+    right: 4px;
+    width: 4px;
+    height: 4px;
     background: #0f2b4a;
     border-radius: 50%;
 }
 
 .welcome-text {
+    position: relative;
     text-align: center;
-    margin-top: 10vh;
-    font-size: 6vw;
+    margin-top: 120px;
+    font-size: 40px;
     font-weight: bold;
     line-height: 1.1;
-    position: relative;
 }
 
 .line1, .line2 {
@@ -95,21 +95,22 @@ body {
     animation: sparkle 2s infinite;
 }
 
+/* موقعیت ستاره‌ها */
 .star {
     position: absolute;
     color: white;
-    font-size: 5vw;
+    font-size: 36px;
     animation: sparkle 1.5s infinite;
 }
 
 .star.left-top {
-    top: -5vh;
-    left: 8vw;
+    top: -30px;   /* قبلاً -10px بود، حالا بالاتر بردیم */
+    left: 30px;   /* کمی به راست‌تر بردیم که دقیق‌تر بالای WELCOME باشه */
 }
 
 .star.right-bottom {
-    bottom: -2vh;
-    right: 5vw;
+    bottom: -10px;
+    right: 20px;
 }
 
 /* رنگ هر حرف */
@@ -135,35 +136,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2vw;
-    margin-top: auto;   /* دکمه همیشه پایین کانتینر */
-    margin-bottom: 5vh;
-    padding: 2vh 5vw;
+    gap: 12px;
+    margin: 90px auto 0;
+    padding: 16px 50px;
     background: #f0f0f0;
     color: #0f2b4a;
-    font-size: 3vw;
+    font-size: 24px;
     font-weight: bold;
     border: none;
-    border-radius: 5vw;
+    border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .get-start-btn span {
-    font-size: 4vw;
-}
-
-/* Media Queries برای موبایل */
-@media (max-width: 768px) {
-    .container {
-        width: 90vw;
-        height: 80vh;
-    }
-    .welcome-text {
-        font-size: 8vw;
-    }
-    .get-start-btn {
-        font-size: 5vw;
-        padding: 3vh 8vw;
-    }
+    font-size: 28px;
 }
