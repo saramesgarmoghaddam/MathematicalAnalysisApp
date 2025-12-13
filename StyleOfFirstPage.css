@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: #0a1a2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+}
+
+.container {
+    width: 50vw;   /* نصف عرض صفحه */
+    height: 70vh;  /* 70 درصد ارتفاع صفحه */
+    background: #0f2b4a;
+    border-radius: 3vw;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.6);
+    padding: 3vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* همه عناصر وسط افقی */
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -2vh; left: -2vh; right: -2vh; bottom: -2vh;
+    background: repeating-conic-gradient(
+        from 0deg,
+        #ff0000, #ff9900 10deg,
+        #ffff00 20deg, #00ff00 30deg,
+        #00ffff 40deg, #0000ff 50deg,
+        #9900ff 60deg, #ff00ff 70deg,
+        #ff0000 80deg
+    );
+    border-radius: 5vw;
+    z-index: -1;
+    background-size: 200% 200%;
+    animation: rainbow 10s linear infinite;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+.sign-up {
+    position: absolute;
+    top: 2vh;
+    right: 3vw;
+    color: white;
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    z-index: 10;
+}
+
+.door-icon {
+    width: 2vh;
+    height: 2vh;
+    background: white;
+    border-radius: 0.5vh;
+    position: relative;
+}
+
+.door-icon::after {
+    content: '';
+    position: absolute;
+    top: 0.6vh;
+    right: 0.6vh;
+    width: 0.6vh;
+    height: 0.6vh;
+    background: #0f2b4a;
+    border-radius: 50%;
+}
+
+.welcome-text {
+    text-align: center;
+    margin-top: 10vh;
+    font-size: 6vw;
+    font-weight: bold;
+    line-height: 1.1;
+    position: relative;
+}
+
+.line1, .line2 {
+    display: block;
+}
+
+.welcome-text span {
+    display: inline-block;
+    animation: sparkle 2s infinite;
+}
+
+.star {
+    position: absolute;
+    color: white;
+    font-size: 5vw;
+    animation: sparkle 1.5s infinite;
+}
+
+.star.left-top {
+    top: -5vh;
+    left: 8vw;
+}
+
+.star.right-bottom {
+    bottom: -2vh;
+    right: 5vw;
+}
+
+/* رنگ هر حرف */
+.w { color: #ff6b6b; }
+.e { color: #4ecdc4; }
+.l { color: #45b7d1; }
+.c { color: #f9ca24; }
+.o { color: #f3722c; }
+.m { color: #a29bfe; }
+.e2 { color: #fd79a8; }
+.t { color: #48dbfb; }
+.o2 { color: #ff9ff3; }
+.a { color: #54a0ff; }
+.p { color: #ff6b6b; }
+.p2 { color: #feca57; }
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.7; transform: scale(1.2) rotate(10deg); }
+}
+
+.get-start-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: auto;   /* دکمه همیشه پایین کانتینر */
+    margin-bottom: 5vh;
+    padding: 2vh 5vw;
+    background: #f0f0f0;
+    color: #0f2b4a;
+    font-size: 3vw;
+    font-weight: bold;
+    border: none;
+    border-radius: 5vw;
+    cursor: pointer;
+    box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.4);
+}
+
+.get-start-btn span {
+    font-size: 4vw;
+}
+
+/* Media Queries برای موبایل */
+@media (max-width: 768px) {
+    .container {
+        width: 90vw;
+        height: 80vh;
+    }
+    .welcome-text {
+        font-size: 8vw;
+    }
+    .get-start-btn {
+        font-size: 5vw;
+        padding: 3vh 8vw;
+    }
+}
