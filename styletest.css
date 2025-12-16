@@ -32,7 +32,7 @@ body {
 .space-info {
   margin-bottom: 16px;
   font-size: 30px;
-  color: #09bbbb;
+  color: #13d1d1;
   letter-spacing: 1px;
 }
 
@@ -114,7 +114,7 @@ body {
   margin-bottom: 24px;
   box-shadow: 
     0 8px 24px rgba(15,30,60,0.06),
-    0 0 15px rgba(9,187,187,0.3),
+    0 0 15px rgba(30, 232, 232, 0.3),
     0 0 30px rgba(9,187,187,0.2);
   border: 1px solid rgba(9,187,187,0.2);
 }
@@ -195,6 +195,22 @@ input[type=range] {
   margin-bottom: 6px;
   color: #0b5c6b;
   direction: rtl;
+}
+
+#depthCard {
+    position: absolute;  /* شناور روی کانواس */
+    top: 610px;           /* فاصله از بالا */
+    right: 25px;         /* فاصله از راست */
+    width: 368px;        /* عرض مناسب */
+    padding: 25px;
+    background: #b5b9ba;
+     border: 1px solid rgba(9,187,187,0.2); /* شفافیت مناسب */
+  
+    border-radius: 10px;
+    z-index: 20;         /* روی کانواس */
+}
+#depthCard input[type="range"] {
+    width: 100%;
 }
 
 .math {

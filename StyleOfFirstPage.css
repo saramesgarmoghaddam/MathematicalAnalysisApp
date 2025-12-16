@@ -9,8 +9,8 @@ body {
 }
 
 .container {
-    width: 320px;
-    height: 550px;
+    width: 1100px;
+    height: 600px;
     background: #0f2b4a;
     border-radius: 30px;
     position: relative;
@@ -80,8 +80,8 @@ body {
 .welcome-text {
     position: relative;
     text-align: center;
-    margin-top: 120px;
-    font-size: 40px;
+    margin-top: 200px;
+    font-size: 70px;
     font-weight: bold;
     line-height: 1.1;
 }
@@ -99,18 +99,18 @@ body {
 .star {
     position: absolute;
     color: white;
-    font-size: 36px;
+    font-size: 60px;
     animation: sparkle 1.5s infinite;
 }
 
 .star.left-top {
     top: -30px;   /* قبلاً -10px بود، حالا بالاتر بردیم */
-    left: 30px;   /* کمی به راست‌تر بردیم که دقیق‌تر بالای WELCOME باشه */
+    left: 250px;   /* کمی به راست‌تر بردیم که دقیق‌تر بالای WELCOME باشه */
 }
 
 .star.right-bottom {
     bottom: -10px;
-    right: 20px;
+    right: 270px;
 }
 
 /* رنگ هر حرف */
@@ -137,8 +137,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin: 90px auto 0;
-    padding: 16px 50px;
+    margin: 50px auto 0;
+    padding: 10px 60px;
     background: #f0f0f0;
     color: #0f2b4a;
     font-size: 24px;

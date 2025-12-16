@@ -2,6 +2,20 @@ let currentSpace = 1;
 const totalSpaces = 4;
 let p5Instance = null;
 let epsilon = 30;
+// کره 3 بعدی
+const R = 160;       // شعاع کره
+const delta3D = 4;   // ضخامت مرز کره
+
+// عمق نقطه که کاربر انتخاب می‌کنه
+let depth = R;       // به صورت پیش‌فرض روی مرز کره
+
+// بردار جهت موس روی صفحه
+let ray = null;
+
+// اسلایدر و المان‌های HTML مربوط به عمق
+const depthSlider = document.getElementById("depth");       // <input type="range" id="depth">
+const depthValue = document.getElementById("depthValue");   // نمایش عدد عمق
+const depthCard  = document.getElementById("depthCard");    // کارت کنترل عمق
 const epsilonSlider = document.getElementById("epsilon");
 const epsValue = document.getElementById("epsValue");
 const badge = document.getElementById("point-type");
@@ -29,7 +43,9 @@ function createSketch(space) {
     badge.className = "badge neutral";
     badge.textContent = "هنوز نقطه‌ای انتخاب نشده";
     detail.textContent = "روی شکل کلیک کنید تا نقطه تحلیل شود";
-
+    if (depthCard) {
+    depthCard.style.display = (space === 3) ? "block" : "none";
+}
     if (space === 1 || space === 2 || space === 4) {
         // 2D
         p5Instance = new p5((p) => {
@@ -75,7 +91,8 @@ function createSketch(space) {
                     p.noStroke();
                     p.textSize(40);
                     p.text("(0,1)", 0, -80);
-                } else if (space === 2) {
+                }
+                 else if (space === 2) {
                     p.stroke(200);
                     p.strokeWeight(2);
                     p.line(-400, 0, 400, 0);
@@ -92,7 +109,8 @@ function createSketch(space) {
                     p.vertex(90, 140);
                     p.vertex(-60, 120);
                     p.endShape(p.CLOSE);
-                } else if (space === 4) {
+                } 
+                else if (space === 4) {
                     p.stroke(200);
                     p.strokeWeight(2);
                     p.line(-400, 0, 400, 0);
@@ -161,7 +179,7 @@ function createSketch(space) {
         }
     } 
     // فضای ۲ و ۴ یا بعدی همان کد قبلی بدون تغییر
-else if (space === 2) {
+ else if (space === 2) {
     const polyVertices = [
         {x:-160, y:50},
         {x:-120, y:-80},
@@ -240,77 +258,99 @@ else if (space === 2) {
         badge.className = "badge exterior";
         detail.textContent = "یک همسایگی کوچک اطراف این نقطه وجود دارد که  کاملاً خارج از شکل است.";
     }
-}
+ }
 
-};
+ };
 
         });
-    } else {
-        // WEBGL برای فضای ۳
-        p5Instance = new p5((p) => {
-            let selected = null;
+    }else if (space === 3) {
+    // نمایش کارت عمق
+    if (depthCard) depthCard.style.display = "block";
 
-            p.setup = () => {
-                let c = p.createCanvas(820, 540, p.WEBGL);
-                c.parent('canvas-holder');
-            };
+    p5Instance = new p5((p) => {
+        let ray = null;
 
-            p.draw = () => {
-                p.background(11, 19, 36);
-                p.orbitControl();
-                p.ambientLight(120);
-                p.rotateY(p.frameCount * 0.01);
-                p.rotateX(p.frameCount * 0.005);
+        p.setup = () => {
+            let c = p.createCanvas(820, 540, p.WEBGL);
+            c.parent('canvas-holder');
+        };
 
-                p.stroke(200);
-                p.strokeWeight(2);
-                p.line(-300, 0, 0, 300, 0, 0);
-                p.line(0, -300, 0, 0, 300, 0);
-                p.line(0, 0, -300, 0, 0, 300);
+        p.draw = () => {
+            p.background(11, 19, 36);
+            p.orbitControl();
 
+            // نور محیطی و جهت‌دار
+            p.ambientLight(140);
+            p.directionalLight(255, 255, 255, 0.4, 1, -0.5);
+
+            // محور‌ها
+            p.stroke(200);
+            p.strokeWeight(2);
+            p.line(-300, 0, 0, 300, 0, 0);
+            p.line(0, -300, 0, 0, 300, 0);
+            p.line(0, 0, -300, 0, 0, 300);
+
+            // کره شفاف (داخل)
+            p.noStroke();
+            p.ambientMaterial(0, 255, 213, 70);
+            p.sphere(R - delta3D);
+
+            // پوسته مرزی
+            p.noFill();
+            p.stroke(255, 200, 0);
+            p.strokeWeight(2);
+            p.sphere(R);
+
+            // نمایش نقطه و همسایگی
+            if (ray) {
+                let point = ray.copy().mult(depth);
+
+                // نقطه قرمز
+                p.push();
+                p.translate(point.x, point.y, point.z);
+                p.fill(255, 60, 60);
                 p.noStroke();
-                p.ambientMaterial(0, 255, 213);
-                p.sphere(160);
+                p.sphere(8);
+                p.pop();
 
-                if (selected) {
-                    // نقطه قرمز 3D
-                    p.push();
-                    p.translate(selected.x, selected.y, selected.z);
-                    p.fill(255, 60, 60);
-                    p.noStroke();
-                    p.sphere(8);
-                    p.pop();
+                // کره کوچک همسایگی ε
+                p.push();
+                p.translate(point.x, point.y, point.z);
+                p.noFill();
+                p.stroke(255, 255, 255, 120);
+                p.strokeWeight(1.5);
+                p.sphere(epsilon);
+                p.pop();
+            }
+        };
 
-                    // دایره همسایگی ε روی صفحه 2D (برای وضوح)
-                    p.push();
-                    p.resetMatrix();
-                    p.noFill();
-                    p.stroke(255, 255, 255, 120);
-                    p.strokeWeight(2);
-                    p.circle(selected.screenX, selected.screenY, epsilon * 2);
-                    p.pop();
-                }
-            };
+        // کلیک و کشیدن موس
+        p.mousePressed = () => updateRay();
+        p.mouseDragged = () => updateRay();
 
-            p.mousePressed = () => {
-                let mx = (p.mouseX / p.width) * 2 - 1;
-                let my = -(p.mouseY / p.height) * 2 + 1;
-                let vec = p.createVector(mx, my, 0);
-                vec.normalize();
-                vec.mult(160);
+        function updateRay() {
+            let x = (p.mouseX / p.width) * 2 - 1;
+            let y = -(p.mouseY / p.height) * 2 + 1;
 
-                selected = { x: vec.x, y: vec.y, z: vec.z, screenX: p.mouseX, screenY: p.mouseY };
+            ray = p.createVector(x, y, -1).normalize();
 
-                let d = vec.mag();
-                if (d < 160) badge.textContent = "نقطه درونی";
-                else if (Math.abs(d - 160) < 20) badge.textContent = "نقطه مرزی";
-                else badge.textContent = "نقطه بیرونی";
-
-                badge.className = badge.textContent.includes("درونی") ? "badge interior" :
-                                  badge.textContent.includes("مرزی") ? "badge boundary" : "badge exterior";
-            };
-        });
-    }
+            // تعیین وضعیت نقطه بر اساس عمق
+            if (depth < R - delta3D) {
+                badge.textContent = "نقطه درونی";
+                badge.className = "badge interior";
+                detail.textContent = "عمق انتخاب‌شده باعث شده نقطه کاملاً داخل کره قرار بگیرد.";
+            } else if (Math.abs(depth - R) <= delta3D) {
+                badge.textContent = "نقطه مرزی";
+                badge.className = "badge boundary";
+                detail.textContent = "در این عمق، نقطه روی مرز کره قرار دارد.";
+            } else {
+                badge.textContent = "نقطه بیرونی";
+                badge.className = "badge exterior";
+                detail.textContent = "عمق انتخاب‌شده نقطه را خارج از کره قرار داده است.";
+            }
+        }
+    });
+}
 }
 
 // اسلایدر ε — فقط مقدار رو بروز می‌کنه (دایره در draw بروز می‌شه)
@@ -318,6 +358,13 @@ epsilonSlider.addEventListener("input", () => {
     epsilon = Number(epsilonSlider.value);
     epsValue.textContent = epsilon;
 });
+
+if (depthSlider) {
+    depthSlider.addEventListener("input", () => {
+        depth = Number(depthSlider.value);
+        depthValue.textContent = depth;
+    });
+}
 
 // فلش‌ها
 document.getElementById("prevBtn").addEventListener("click", () => {

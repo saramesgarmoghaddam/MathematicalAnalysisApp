@@ -55,11 +55,11 @@
       color:var(--secondary);
     }
 
-    .video-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:2rem;
-    }
+ .video-grid{
+  display:grid;
+  grid-template-columns:1fr; /* فقط یک ستون */
+  gap:2rem;
+}
 
     .video-card{
       background:var(--card);
@@ -102,6 +102,16 @@
       line-height:1.7;
       color:#4b5563;
     }
+
+    .video-wrapper video{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:none;
+}
+
 
     .actions{
       display:flex;
@@ -180,7 +190,10 @@
     <!-- Video Card 2 -->
     <div class="video-card">
       <div class="video-wrapper">
-        <source src="videos/outer.mp4" type="video/mp4">
+       <video controls preload="metadata">
+    <source src="videos/outer.mp4" type="video/mp4">
+    مرورگر شما از ویدیو پشتیبانی نمی‌کند
+  </video>
       </div>
       <div class="video-content">
         <h3>نقاط بیرونی و مجموعه‌های بسته</h3>
